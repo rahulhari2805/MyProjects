@@ -1,0 +1,63 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+
+<h3>Create Auction</h3>
+  
+<div class="mid">
+    <form action="{% url 'create_list' %}" method="POST">
+      {% csrf_token %}
+       <div class="input-group mb-3">
+           <div class="input-group-prepend">
+              <span class="input-group-text" id="inputGroup-sizing-default">Title</span>
+           </div>
+              <input type="text" name="title" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
+        </div>
+        
+        <div class="input-group input-group-lg">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="inputGroup-sizing-lg">Description</span>
+            </div>
+            <textarea name="description" rows="5" cols="100">Write your Auction description.</textarea>
+        </div><br>
+        
+
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="inputGroup-sizing-default">Url</span>
+            </div>
+            <input name="image_url" type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" placeholder="Url of your Product image">
+        </div>
+
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text">₹</span>
+              <span class="input-group-text">0.00</span>
+            </div>
+            <input name="price_bid" type="number" class="form-control" aria-label="Amount (to the nearest dollar)">
+        </div>
+
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <label class="input-group-text" for="inputGroupSelect01">Category</label>
+            </div>
+            <select name="category" class="custom-select" id="inputGroupSelect01">
+              <option selected>Choose a Category...</option>
+              <option value="Automobiles">Automobiles</option>
+              <option value="Toys">Toys</option>
+              <option value="Fashion">Fashion</option>
+              <option value="Electronics">Electronics</option>
+              <option value="Home">Home</option>
+              <option value="Others">Others...</option>
+            </select>
+        </div>
+        <br>
+        <button type="submit" class="btn btn-primary">Submit</button>
+  
+
+   
+    </form>
+</div>
+
+{% endblock %}
+  

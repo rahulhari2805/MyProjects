@@ -1,0 +1,21 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+<h3>Categories</h3>
+
+   
+<div class="cat_list">
+  <ul>
+      
+        <li class="catlist"><a class="nav-link" href="{% url 'auction_category' 'Automobiles' %}">Automobiles</a></li>
+        <li class="catlist"><a class="nav-link" href="{% url 'auction_category' 'Toys' %}">Toys</a></li>
+        <li class="catlist"><a class="nav-link" href="{% url 'auction_category' 'Fashion' %}">Fashion</a></li>
+        <li class="catlist"><a class="nav-link" href="{% url 'auction_category' 'Electronics' %}">Electronics</a></li>
+        <li class="catlist"><a class="nav-link" href="{% url 'auction_category' 'Home' %}">Home</a></li>
+        <li class="catlist"><a class="nav-link" href="{% url 'auction_category' 'Others' %}">Others</a></li>
+  </ul>
+</div>
+
+
+ 
+{% endblock %}

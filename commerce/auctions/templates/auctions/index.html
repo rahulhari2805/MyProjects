@@ -1,0 +1,66 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+<h3>Active-Listings</h3>
+
+{% if exists %}
+<div class="alert alert-warning" role="alert">
+  Watchlist Already Added!!
+</div>
+{% endif %}
+
+{% if bid_winner %}
+
+ <div class="alert alert-primary" role="alert">
+  <h1>Hurray!!! U won the Auction.....</h1> 
+</div>
+ 
+ <div class="activity">
+    {% for cards in bid_winner %}
+    
+      <div class="card" style="width: 30rem;">
+          <img class="card-img-top" src="{{ cards.url_image }}" alt="Auction image">
+            <div class="card-body">
+              <h5 class="card-title">{{ cards.title }}</h5>
+              <p class="card-text">{{ cards.description }}</p>
+              <p class="card-text"><small class="text-muted">Base Price : ₹{{ cards.price_bid}}</small></p>
+              <p class="card-text"><small class="text-muted">Your Price : ₹{{ cards.winner_bid}}</small></p>
+              
+          
+            </div>
+        </div>
+  </div>
+     {% endfor %}
+  {% endif %}
+
+<div class="activity">
+  {% for cards in auctions %}
+    
+      <div class="card" style="width: 30rem;">
+          <img class="card-img-top" src="{{ cards.url_image }}" alt="Auction image">
+            <div class="card-body">
+              <h5 class="card-title">{{ cards.title }}</h5>
+              <p class="card-text">{{ cards.description }}</p>
+              <p class="card-text"><small class="text-muted">Base Price : ₹{{ cards.price_bid}}</small></p>
+              <a href="{% url 'auctionlist' cards.title %}" class="btn btn-primary">View</a>
+              {% if user.is_authenticated %}
+              <form action="{% url 'index' %}" method="POST">
+                {% csrf_token %}
+                <input type="hidden" name="get_watchlist" value="{{ cards.title }}"></input><br>
+                <button type="submit" class="btn btn-dark">Add to Watchlist</button>
+              </form>
+              {% endif %}
+            </div>
+        </div>
+      
+  
+
+  {% empty %}
+    <h1>No Active Auctions.</h1> 
+  {% endfor %}
+</div>
+ 
+
+
+
+{% endblock %}

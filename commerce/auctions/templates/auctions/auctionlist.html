@@ -1,0 +1,94 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+  
+<center><h3>{{ auctions.category.category }}</h3></center>
+
+{% if warn %}
+ <div class="alert alert-warning" role="alert">
+   {{ warn }}
+ </div>
+{% endif %}
+
+{% if success %}
+<div class="alert alert-success" role="alert">
+  {{ success }}
+</div>
+{% endif %}
+
+{% if exists %}
+<div class="alert alert-warning" role="alert">
+  Watchlist Already Added!!
+</div>
+{% endif %}
+
+<div class="auctionlist">
+  <div class="card" style="width: 30rem">
+    <img class="card-img-top" src="{{ auctions.url_image }}" alt="Auction image">
+  </div>
+</div>    
+
+<div class="auctionbody">
+  <div class="card-body">
+    <h5 class="card-title">{{ auctions.title }}</h5>
+    <p class="card-text">{{ auctions.description }}</p>
+    <p class="card-text"><small class="text-muted">Base Price : ₹{{ auctions.price_bid}}</small></p>
+    <p class="card-text"><small class="text-muted">Highest bid Price : ₹{{ bids }}</small></p>
+
+    {% if user.is_authenticated %}
+
+    <form class="alignbutton" action="{% url 'auctionlist' auctions.title %}" method="POST">
+      {% csrf_token %}
+
+      <input type="hidden" name="get_watchlist" value="{{ auctions.title }}"></input><br>
+      <button type="submit" class="btn btn-dark">Add to Watchlist</button><br>
+    </form><br><br><br>
+    
+    <form class="alignbutton" action="{% url 'auctionlist' auctions.title %}" method="POST">
+      {% if closeauction %}
+      {% csrf_token %}
+      <input type="hidden" name="close_auction" value="closeauction"></input><br>
+      <button type="submit" class="btn btn-dark">Close Auction</button>
+      {% endif %}
+    </form>
+    
+    <form action="{% url 'auctionlist' auctions.title %}" method="POST">
+      {% csrf_token %}
+      <label>New Bid:</label>
+      <input type="number" name="new_bid" placeholder="Raise your New Bid" class="new_bc">
+      <button type="submit" class="btn btn-primary">Submit</button><br><br>
+    
+      <label>Comments:</label>
+      <input type="text" name="new_comment" placeholder="Comments" class="new_bc">
+      <button type="submit" class="btn btn-primary">Submit</button><br>
+
+    </form>
+
+  </div>
+</div>
+    
+  {% endif %}
+ 
+
+
+<div class="comments">
+  <p>Comments<p>
+</div>
+
+{% for comment in comments %}
+<div class="user_comments">
+  <div class="card">
+    <div class="card-header">
+      By {{comment.user}}:
+    </div>
+    <div class="card-body">
+       <p class="card-text">{{ comment.new_comments }}</p>
+    </div>
+  </div>
+</div><br>
+ 
+{% endfor %}
+
+
+
+{% endblock %}

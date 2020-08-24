@@ -1,0 +1,41 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+<center><h3>{{ categoryhead.category }}</h3></center>
+
+<div class="activity">
+    {% for cat in catlist %}
+      
+        <div class="card" style="width: 30rem;">
+            <img class="card-img-top" src="{{ cat.url_image }}" alt="Auction image">
+              <div class="card-body">
+                <h5 class="card-title">{{ cat.title }}</h5>
+                <p class="card-text">{{ cat.description }}</p>
+                <p class="card-text"><small class="text-muted">Base Price : ₹{{ cat.price_bid}}</small></p>
+                <a href="{% url 'auctionlist' cat.title %}" class="btn btn-primary">View</a>
+                {% if user.is_authenticated %}
+                <form action="#" method="POST">
+                  {% csrf_token %}
+                  <input type="hidden" name="get_watchlist" value="{{ cat.title }}"></input><br>
+                  <button type="submit" class="btn btn-dark">Add to Watchlist</button>
+                </form>
+                {% endif %}
+              </div>
+          </div>
+        
+    
+  
+    {% empty %}
+      <h1>No Active Auctions in this Category.</h1> 
+    {% endfor %}
+    
+      
+  
+  </div>
+  
+      
+
+
+
+ 
+{% endblock %}
