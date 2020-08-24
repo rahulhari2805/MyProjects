@@ -1,0 +1,94 @@
+body {
+    text-align: center;
+    margin-top: 25px;
+    font-family: arial,sans-serif;
+}
+
+.smargin{
+    margin-top: 125px;
+}
+
+.gblue{
+    color:#4285F4;
+    font-size: 90px;
+}
+
+.gred{
+    color:#DB4437;
+    font-size: 90px;
+}
+
+.ggreen{
+    color:#0F9D58;
+    font-size: 90px;
+}
+
+.gyellow{
+    color:#F4B400;
+    font-size: 90px;
+}
+
+.images{
+    color:#4285F4;
+    margin-left: 5cm;
+    
+}
+
+.gsbar{
+    margin-top: 10px;
+    width: 35%;
+    padding: 12px;
+    border-radius: 10mm;
+    outline: none;
+    cursor: text;
+    border: 1px solid #ccc;
+    background-image: url("search.PNG");
+    background-position: 10px;
+    background-repeat: no-repeat;
+    text-indent: 30px;
+    font-size: medium;
+    
+}
+
+.gbox{
+    margin-top: 30px;
+    padding:10px;
+    border:2px;
+    color:gray;
+    border-radius: 5px;
+    width:9%;
+    font-size: 15px;
+    cursor: pointer;
+    margin-right: 2mm;
+}
+
+input[type=text]:hover {
+    
+    border-style: ridge;
+  }
+
+input[type=submit]:hover {
+    
+    border-style: ridge;
+  }
+
+.slink{
+    font-size: small;
+    text-decoration: none;
+    color:black;
+    margin-right: 25px;
+}
+
+.linkposition{
+
+    float: right;
+}
+
+.linkposition :hover{
+    
+    color:grey;
+    text-decoration: underline;
+}
+
+
+
