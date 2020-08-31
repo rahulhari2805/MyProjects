@@ -1,0 +1,78 @@
+body{
+    background-color: whitesmoke;
+}
+
+.rhead{
+    color: lightskyblue;
+}
+
+textarea {
+    min-height: 400px;
+}
+
+.email{
+    background-color: white;
+    padding: 2mm;
+    margin-bottom: 2mm;
+    border-style: solid;
+    border-color: lightskyblue;
+    border-radius: 2mm;
+    transition: background-color .5s;
+}
+.email:hover{
+    background-color: skyblue;
+    padding: 2mm;
+    margin-bottom: 2mm;
+    border-style: solid;
+    border-color: lightskyblue;
+    border-radius: 2mm;
+}
+
+.reademail{
+    background-color: lightgray;
+    padding: 2mm;
+    margin-bottom: 2mm;
+    border-style: solid;
+    border-color: black;
+    border-radius: 2mm;
+    transition: background-color .5s;
+}
+
+.reademail:hover{
+    background-color: gray;
+    padding: 2mm;
+    margin-bottom: 2mm;
+    border-style: solid;
+    border-color: black;
+    border-radius: 2mm;
+}
+
+#myemail{
+    padding: 0;
+    border: none;
+    background: none;
+
+}
+#myemail:focus{
+    outline: none;
+}
+
+
+.full_email{
+    background-color: white;
+    padding: 2mm;
+    margin-bottom: 2mm;
+    border-style: solid;
+    border-color: lightskyblue;
+    border-radius: 2mm;
+
+}
+
+#time{
+    float: right;
+}
+
+#archive_button{
+    float: right;
+    
+}
