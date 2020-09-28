@@ -1,0 +1,107 @@
+{% extends "network/layout.html" %}
+{% load static %}
+
+{% block body %}
+
+<div id="post_view">
+  <h2>
+    <center>
+      <div class="feed_head" style="color:whitesmoke;">My Feeds</div>
+    </center>
+  </h2>
+  <br />
+  {% if user.is_authenticated%}
+  <div class="new_post">
+    <p style="color: darkslategrey"><b>Write your Feed!!....</b></p>
+    <form method="POST">
+      <textarea id="new_text" name="new_post" placeholder="Enter Your Thoughts...." rows="5" cols="50"></textarea><br />
+      <input class="feed_bt" type="submit" value="Feed" />
+    </form>
+  </div>
+  {% endif %}
+
+  <div class="new_feeds_bg">
+
+    {% for post in posts %}
+
+    <div class="feeds">
+      <img src="{% static 'network/heart.png' %}" alt="heart-image" width="30px" height="30px" style="float: right;">
+      <div id="like_count" style="float:right; color:blueviolet"> </div>
+
+      <a style="color:dodgerblue; text-decoration: none;" href="{% url 'user_profile' post.user.username %}">
+        <b>{{ post.user.username }}</b>
+      </a>
+      <hr>
+
+      {% if post.user.username == request.user.username %}
+      <button id="edit_bt" onclick="load_edit('{{ post.id }}')">Edit</button>
+      {% endif %}
+
+      <center>
+        <p>{{ post.post_text }}</p>
+      </center>
+      <hr>
+
+      <div id="like_div">
+      </div>
+
+      <p style="color:lightskyblue">{{ post.timestamp }}</p>
+    </div>
+    <br><br>
+
+    {% endfor %}
+
+  </div>
+  <br>
+  <hr>
+
+  <nav aria-label="Page navigation example">
+    <ul class="pagination justify-content-center">
+      {% if posts.has_previous %}
+      <li class="page-item"><a class="page-link" href="?page={{ posts.previous_page_number }}">&laquo; previous</a>
+      </li>
+      <li class="page-item"><a class="page-link"
+          href="?page={{ posts.previous_page_number }}">{{ posts.previous_page_number }}<a></li>
+      {% endif %}
+
+      <li class="page-item active" aria-current="page">
+        <span class="page-link">
+          {{ page_no }}
+          <span class="sr-only">(current)</span>
+        </span>
+      </li>
+      <a id="default_page" href="?page=1"></a>
+
+      {% if posts.has_next %}
+
+      <li class="page-item"><a class="page-link"
+          href="?page={{ posts.next_page_number }}">{{ posts.next_page_number }}<a>
+      </li>
+      <li class="page-item"><a class="page-link" href="?page={{ posts.next_page_number }}">next &raquo;</a>
+      </li>
+      {% endif %}
+
+    </ul>
+  </nav>
+
+</div>
+
+<div id="edit_view">
+  <div class="feeds_bg">
+    <center>
+      <h3 style="color:red">Edit Your Post</h3>
+      <hr>
+      <form class="edit_bg" action="{% url 'index' %}">
+        <textarea id="edit_text" rows="7" cols="100"></textarea><br><br>
+        <div id="save_div"></div>
+      </form>
+    </center>
+  </div>
+
+</div>
+
+{% endblock %}
+
+{% block script %}
+<script src="{% static 'network/index.js' %}"></script>
+{% endblock %}

@@ -1,0 +1,122 @@
+{% extends "network/layout.html" %}
+{% load static %}
+
+{% block body %}
+
+<div class="user_bg">
+
+    <center>
+
+        <div class="profile_id">
+            <h1>{{ profile_id }}</h1>
+        </div><br>
+
+        {% if diff_user %}
+        <div id="follow_div">
+            <button class="follow_bt"></button>
+        </div>
+
+        {% endif %}
+
+    </center>
+
+
+    <p style="float: right; margin-right: 50px;"><b>&nbsp;Followers</b></p>
+    <div id="followers_num" style="float: right;"></div>
+
+
+    <p style="float: right; margin-right: 50px;"><b>&nbsp;Followings</b></p>
+    <div id="followings_num" style="float: right"></div>
+    <h3 id="user-profile" style="margin-left: 50px">{{username}}</h3>
+
+</div>
+<hr>
+
+<div id="edit_view">
+    <div class="feeds_bg">
+        <center>
+            <h3 style="color:red">Edit Your Post</h3>
+            <hr>
+            <form class="edit_bg" action="{% url 'user_profile' username %}">
+                <textarea id="edit_text" rows="7" cols="100"></textarea><br><br>
+                <div id="save_div"></div>
+            </form>
+        </center>
+    </div>
+
+</div>
+
+
+<div id="post_view">
+    <h2>
+        <center>{{ username }}'s Feed</center>
+    </h2>
+    <br />
+    <div class="feeds_bg">
+        {% for post in posts %}
+
+        <div class="feeds">
+            <img src="{% static 'network/heart.png' %}" alt="heart-image" width="30px" height="30px"
+                style="float: right;">
+            <div id="like_count" style="float:right; color:blueviolet"> </div>
+            <p style="color:dodgerblue"><b>{{ post.user.username }}</b></p>
+            <hr>
+
+            {% if username == request.user.username %}
+            <button id="edit_bt" onclick="load_edit('{{ post.id }}')">Edit</button>
+            {% endif %}
+
+            <center>
+                <p>{{ post.post_text }}</p>
+            </center>
+
+
+            <hr>
+            <div id="like_div"></div>
+            <p style="color:lightskyblue">{{ post.timestamp }}</p>
+        </div>
+        <br><br>
+        {% endfor %}
+    </div>
+    <br>
+    <hr>
+
+    <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center">
+            {% if posts.has_previous %}
+            <li class="page-item"><a class="page-link" href="?page={{ posts.previous_page_number }}">&laquo;
+                    previous</a>
+            </li>
+            <li class="page-item"><a class="page-link"
+                    href="?page={{ posts.previous_page_number }}">{{ posts.previous_page_number }}<a></li>
+            {% endif %}
+
+            <a id="default_page" href="?page=1"></a>
+
+            <li class="page-item active" aria-current="page">
+                <span class="page-link">
+                    {{ page_no }}
+                    <span class="sr-only">(current)</span>
+                </span>
+            </li>
+
+            {% if posts.has_next %}
+            <li class="page-item"><a class="page-link"
+                    href="?page={{ posts.next_page_number }}">{{ posts.next_page_number }}<a>
+            </li>
+            <li class="page-item"><a class="page-link" href="?page={{ posts.next_page_number }}">next &raquo;</a>
+            </li>
+            {% endif %}
+
+        </ul>
+    </nav>
+</div>
+
+
+
+
+{% endblock %}
+
+{% block script %}
+<script src="{% static 'network/user_profile.js' %}"></script>
+{% endblock %}

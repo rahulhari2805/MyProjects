@@ -1,0 +1,78 @@
+{% extends "network/layout.html" %}
+{% load static %}
+
+{% block body %}
+
+<div class="user_bg">
+
+    <h2>
+        <center>Feeds of People u Follow</center>
+    </h2>
+
+</div>
+<hr>
+
+<br />
+<div class="feeds_bg">
+    {% for post in posts %}
+
+    <div class="feeds">
+        <img src="{% static 'network/heart.png' %}" alt="heart-image" width="30px" height="30px" style="float: right;">
+        <div id="like_count" style="float:right; color:blueviolet"> </div>
+
+        <a style="color:dodgerblue; text-decoration: none;" href="{% url 'user_profile' post.user.username %}">
+            <b>{{ post.user.username }}</b>
+        </a>
+        <hr>
+
+        <center>
+            <p>{{ post.post_text }}</p>
+        </center>
+        <hr>
+
+        <div id="like_div"></div>
+
+        <p style="color:lightskyblue">{{ post.timestamp }}</p>
+    </div>
+    <br><br>
+
+    {% endfor %}
+
+</div>
+<br>
+<hr>
+
+<nav aria-label="Page navigation example">
+    <ul class="pagination justify-content-center">
+        {% if posts.has_previous %}
+        <li class="page-item"><a class="page-link" href="?page={{ posts.previous_page_number }}">&laquo; previous</a>
+        </li>
+        <li class="page-item"><a class="page-link"
+                href="?page={{ posts.previous_page_number }}">{{ posts.previous_page_number }}<a></li>
+        {% endif %}
+
+        <a id="default_page" href="?page=1"></a>
+
+        <li class="page-item active" aria-current="page">
+            <span class="page-link">
+                {{ page_no }}
+                <span class="sr-only">(current)</span>
+            </span>
+        </li>
+
+        {% if posts.has_next %}
+        <li class="page-item"><a class="page-link"
+                href="?page={{ posts.next_page_number }}">{{ posts.next_page_number }}<a>
+        </li>
+        <li class="page-item"><a class="page-link" href="?page={{ posts.next_page_number }}">next &raquo;</a>
+        </li>
+        {% endif %}
+
+    </ul>
+</nav>
+
+{% endblock %}
+
+{% block script %}
+<script src="{% static 'network/following.js' %}"></script>
+{% endblock %}
